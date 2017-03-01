@@ -255,6 +255,7 @@ class ReferencePrimer
     {
         $mapping = $persistentCollection->getMapping();
 
+
         if ($mapping['storeAs'] === ClassMetadataInfo::REFERENCE_STORE_AS_ID) {
             $className = $mapping['targetDocument'];
             $class = $this->dm->getClassMetadata($className);
