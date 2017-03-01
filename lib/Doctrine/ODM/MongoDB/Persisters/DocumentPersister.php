@@ -806,7 +806,7 @@ class DocumentPersister
         if (isset($mappedByMapping['storeAs']) && $mappedByMapping['storeAs'] === ClassMetadataInfo::REFERENCE_STORE_AS_ID) {
             $mappedByFieldName = $mapping['mappedBy'];
         } else {
-            $mappedByFieldName = $mapping['mappedBy'] . '.' . ClassMetadataInfo::getReferencePrefix($mappedByMapping['storeAs']) . 'id';
+            $mappedByFieldName = $mapping['mappedBy'] . '.' . ClassMetadataInfo::getReferencePrefix(isset($mappedByMapping['storeAs']) ? $mappedByMapping['storeAs'] : null) . 'id';
         }
 
         $criteria = $this->cm->merge(
