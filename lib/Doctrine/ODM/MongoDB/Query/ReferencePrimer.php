@@ -264,7 +264,7 @@ class ReferencePrimer
             if ($mapping['storeAs'] === ClassMetadataInfo::REFERENCE_STORE_AS_ID) {
                 $id = $reference;
             } else {
-                $id = $reference['$id'];
+                $id = $reference[ClassMetadataInfo::getReferencePrefix($mapping['storeAs']) . 'id'];
                 $className = $this->uow->getClassNameForAssociation($mapping, $reference);
                 $class = $this->dm->getClassMetadata($className);
             }

@@ -103,6 +103,8 @@ class ClassMetadataInfo implements \Doctrine\Common\Persistence\Mapping\ClassMet
     const REFERENCE_STORE_AS_ID = 'id';
     const REFERENCE_STORE_AS_DB_REF = 'dbRef';
     const REFERENCE_STORE_AS_DB_REF_WITH_DB = 'dbRefWithDb';
+    const REFERENCE_STORE_AS_REF = 'ref';
+    const REFERENCE_STORE_AS_REF_WITH_DB = 'refWithDb';
 
     /* The inheritance mapping types */
     /**
@@ -463,6 +465,30 @@ class ClassMetadataInfo implements \Doctrine\Common\Persistence\Mapping\ClassMet
     {
         $this->name = $documentName;
         $this->rootDocumentName = $documentName;
+    }
+
+    /**
+     * Helper method to get reference id of ref* type references
+     * @param array  $reference
+     * @param string $storeAs
+     * @return \MongoId
+     */
+    public static function getReferenceId($reference, $storeAs)
+    {
+        if ($storeAs === ClassMetadataInfo::REFERENCE_STORE_AS_REF_WITH_DB || $storeAs === ClassMetadataInfo::REFERENCE_STORE_AS_REF) {
+            return $reference['id'];
+        } else {
+            return $reference['$id'];
+        }
+    }
+
+    public static function getReferencePrefix($storeAs)
+    {
+        if ($storeAs === ClassMetadataInfo::REFERENCE_STORE_AS_REF_WITH_DB || $storeAs === ClassMetadataInfo::REFERENCE_STORE_AS_REF) {
+            return '';
+        } else {
+            return '$';
+        }
     }
 
     /**
